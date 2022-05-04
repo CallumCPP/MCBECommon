@@ -47,23 +47,19 @@ namespace Common {
         }
         
         uintptr_t findMultiLvlPtr(uintptr_t baseAddr, std::vector<unsigned int> offsets) {
-            uintptr_t res = NULL;
+            uintptr_t ptr = baseAddr;
+            int I = 0;
 
-            if(baseAddr != NULL) {
-                auto curr = baseAddr;
-                for(auto I = 0; I < offsets.size(); I++) {
-                    if((uintptr_t*)curr == nullptr || *(uintptr_t*)curr == NULL) break;
-                    
-                    curr = *(uintptr_t*)curr;
-                    if((uintptr_t*)(curr + offsets[I]) == nullptr || *(uintptr_t*)(curr + offsets[I]) == NULL) break;
-                    
-                    curr += offsets[I];
-                }
-                if(curr != NULL)
-                    res = curr;
-            }
+            do {
+                if (ptr == NULL || (uintptr_t*)(uintptr_t)(ptr + offsets[I]) == nullptr || *(uintptr_t**)(uintptr_t)(ptr + offsets[I]) == nullptr)
+                    return nullptr;
+                
+                ptr = *(uintptr_t*)ptr + offsets[I];
+                I++;
 
-            return res;
+            } while (I < offsets.size());
+
+            return (uintptr_t*)ptr;
         }
     }
 }
