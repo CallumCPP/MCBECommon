@@ -46,7 +46,7 @@ namespace Common {
             return NULL;
         }
         
-        uintptr_t findMultiLvlPtr(uintptr_t baseAddr, std::vector<unsigned int> offsets) {
+        uintptr_t* findMultiLvlPtr(uintptr_t baseAddr, std::vector<unsigned int> offsets) {
             uintptr_t ptr = baseAddr;
             int I = 0;
 
