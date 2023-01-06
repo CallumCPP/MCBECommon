@@ -7,7 +7,7 @@
 
 namespace Common {
     namespace Utils {
-        std::string Utils::getDebugDir() {
+        std::string getDebugDir() {
             char* path = NULL;
             size_t length;
             _dupenv_s(&path, &length, "appdata");
